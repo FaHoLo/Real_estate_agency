@@ -8,7 +8,8 @@ def parse_pure_phones(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
         pure_phone = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-        if phonenumbers.is_valid_number(pure_phone):
+        str_pure_phone = phonenumbers.format_number(pure_phone, phonenumbers.PhoneNumberFormat.E164)
+        if phonenumbers.is_valid_number(pure_phone) and str_pure_phone.startswith('+7'):
             flat.owner_phone_pure = pure_phone
             flat.save()
 
