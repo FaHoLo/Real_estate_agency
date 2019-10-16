@@ -7,10 +7,13 @@ def add_flats_to_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     for flat in Flat.objects.all():
-        owner = Owner.objects.get(
+        owner = Owner.objects.get_or_create(
             name=flat.owner, 
             phonenumber=flat.owners_phonenumber,
-        )
+            defaults={
+            'phone_pure': flat.owner_phone_pure,
+            }
+        )[0]
         owner.flats.add(flat)
         owner.save()
 
