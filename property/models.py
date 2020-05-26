@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Flat(models.Model):
     created_at = models.DateTimeField("Когда создано объявление", default=timezone.now, db_index=True)
-    
+
     description = models.TextField("Текст объявления", blank=True)
     price = models.IntegerField("Цена квартиры", db_index=True)
 
@@ -28,10 +28,12 @@ class Flat(models.Model):
     def __str__(self):
         return f"{self.town}, {self.address} ({self.price}р.)"
 
+
 class Complaint(models.Model):
     user = models.ForeignKey(User, verbose_name="Кто жаловался", on_delete=models.SET_NULL, null=True)
     flat = models.ForeignKey(Flat, verbose_name="Квартира, на которую пожаловались", on_delete=models.CASCADE)
     text = models.TextField("Текст жалобы")
+
 
 class Owner(models.Model):
     name = models.CharField("ФИО владельца", max_length=200, db_index=True)

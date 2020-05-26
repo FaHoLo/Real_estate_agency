@@ -8,14 +8,15 @@ def add_flats_to_owners(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
     for flat in Flat.objects.all():
         owner = Owner.objects.get_or_create(
-            name=flat.owner, 
+            name=flat.owner,
             phonenumber=flat.owners_phonenumber,
             defaults={
-            'phone_pure': flat.owner_phone_pure,
+                'phone_pure': flat.owner_phone_pure,
             }
         )[0]
         owner.flats.add(flat)
         owner.save()
+
 
 def move_backward(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')

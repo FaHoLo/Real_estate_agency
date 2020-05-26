@@ -13,6 +13,7 @@ def parse_pure_phones(apps, schema_editor):
             flat.owner_phone_pure = pure_phone
             flat.save()
 
+
 def move_backward(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
